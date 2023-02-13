@@ -32,7 +32,7 @@ function calcAge(birthYear) {
   return age;
 }
 
-const firstName = 'Lucian';
+var firstName = 'Matilda';
 calcAge(1991);
 
 // console.log(age);
@@ -52,11 +52,11 @@ if (myName === 'Bob') {
 */
 
 // Variables hoisting
-console.log(me);
+// console.log(me);
 // console.log(job);
 // console.log(year);
 
-var me = 'Lucian';
+// var me = 'Lucian';
 let job = 'teacher';
 const year = 1991;
 
@@ -111,23 +111,129 @@ const calcAgeArrow = birthYear => {
 
 calcAgeArrow(1991);
 
-const lucian = {
-  year: 1991,
-  calcAge: function () {
-    console.log(this);
-    console.log(2037 - this.year);
-  },
-};
+// const lucian = {
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+// };
 
-lucian.calcAge();
+// lucian.calcAge();
 
 const matilda = {
   year: 2017,
 };
 
-matilda.calcAge = lucian.calcAge;
-matilda.calcAge();
+// matilda.calcAge = lucian.calcAge;
+// matilda.calcAge();
 
 // Doesn't work on normal function call
 // const f = lucian.calcAge;
 // f();
+
+const lucian = {
+  firstName: 'Lucian',
+  year: 1991,
+  calcAge: function () {
+    console.log(this);
+    console.log(2037 - this.year);
+
+    // self or that
+    //     const self = this;
+
+    //     const isMillenial = function () {
+    //       console.log(self);
+    //       console.log(self.year >= 1981 && self.year <= 1996);
+    //     };
+    //     isMillenial();
+    //   },
+
+    const isMillenial = () => {
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+  },
+
+  greet: function () {
+    console.log(`Hey ${this.firstName}`);
+  },
+};
+
+lucian.greet();
+lucian.calcAge();
+
+const addExprt = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExprt(2, 5);
+addExprt(2, 5, 8, 12);
+
+var AddArrows = (a, b) => {
+  // no arguments in arrow functions
+  //   console.log(arguments);
+  return a + b;
+};
+
+AddArrows(2, 5, 8);
+
+let age = 30;
+let oldAge = age;
+age = 31;
+console.log(age);
+console.log(oldAge);
+
+const me = {
+  name: 'Lucian',
+  age: 30,
+};
+
+const friend = me;
+friend.age = 27;
+
+console.log('Friends: ', friend.age);
+console.log('Me: ', me.age);
+
+// primitive types
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+
+console.log(lastName);
+console.log(oldLastName);
+
+// reference types
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+
+console.log('Before marriage ', jessica);
+console.log('After marriage ', marriedJessica);
+
+// marriedJessica = {};
+
+// Copying
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+
+console.log('Before marriage ', jessica2);
+console.log('After marriage ', jessicaCopy);
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before marriage ', jessica2);
+console.log('After marriage ', jessicaCopy);
